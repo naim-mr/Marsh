@@ -1,0 +1,8 @@
+lib: [
+  "_build/install/default/lib/byoppl/META"
+  "_build/install/default/lib/byoppl/dune-package"
+  "_build/install/default/lib/byoppl/opam"
+]
+bin: [
+  "_build/install/default/bin/byoppl"
+]
