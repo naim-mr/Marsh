@@ -19,7 +19,6 @@ let get_support ?(shrink = false) dist =
 
 let make ~sample ?mean ?var ?support () = { sample; mean; var; support }
 
-
 let support_p ~values ~probs =
   assert (Array.length values = Array.length probs);
   let support = { values; probs } in
@@ -29,10 +28,9 @@ let support_p ~values ~probs =
   in
   make ~sample ~support ()
 
-
 let bernoulli ~p =
   assert (0. <= p && p <= 1.);
-  let sample () = (float_of_int) (Owl_stats.binomial_rvs ~p ~n:1) in
+  let sample () = float_of_int (Owl_stats.binomial_rvs ~p ~n:1) in
   let mean () = p in
   let var () = p *. (1. -. p) in
   let support = { values = [| 0.; 1. |]; probs = [| 1. -. p; p |] } in
