@@ -388,6 +388,13 @@ let rec print_cond c =
   | True -> Printf.printf "true "
   | False -> Printf.printf "false"
 
+let normalise alt =
+  let sum = List.fold_left (fun a -> fun (_,p) -> a +. p  ) 0. alt in 
+  let rec aux alt n  =
+    match alt with [] -> [] | (x, p) :: q -> (x, p /. n) :: aux q n
+  in
+  aux alt  sum
+
 let infer m =
   match m with
   | Let (_, e) ->
@@ -398,7 +405,8 @@ let infer m =
           print_endline "")
         clist;
       let _, _, alt, _ = eval_expr [] e clist [] in
-      let vlist, plist = List.split (List.flatten alt) in
+      let vlist, plist = List.split ( normalise (List.flatten alt)) in
+
       Distribution.support_p ~values:(Array.of_list vlist)
         ~probs:(Array.of_list plist)
 
