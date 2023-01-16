@@ -15,6 +15,12 @@ let sample dist = Sample dist
 
 let d_bernoulli e = Bernoulli e 
 let d_uniformd a b = UniformD (a,b)
-let assume e = Assume e 
+let assume c = Assume c 
 
+let or_c c1 c2 = Or(c1,c2)
+let and_c c1 c2 = And(c1,c2)
+let eq x f = Eq(x,f)
+let not c = Not c
+let tr = True
+let flse = False
 let observe e = Observe e 
