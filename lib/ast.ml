@@ -1,7 +1,7 @@
 type var = string
 
 type model = Let of var * expr
-and dist = Bernoulli of float | UniformD of float * float
+and dist = Bernoulli of expr | UniformD of float * float
 
 and expr =
   | Const of float

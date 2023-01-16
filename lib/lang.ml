@@ -1,6 +1,6 @@
 open Ast 
 let model  v e = Let (v,e)
-let const f = Const f 
+let const f = Const f
 let var x = Var x 
 let add e1 e2 = Add (e1,e2)
 
@@ -13,7 +13,7 @@ let letin v e1 e2  = LetIn (v,e1,e2)
 
 let sample dist = Sample dist 
 
-let d_bernoulli p = Bernoulli p 
+let d_bernoulli e = Bernoulli e 
 let d_uniformd a b = UniformD (a,b)
 let assume e = Assume e 
 

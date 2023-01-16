@@ -7,8 +7,8 @@ let () = print_endline "Hello, World!"
 let funny_bernnoulli =
   model "funny_bernoulli"
     (letin "a"
-       (sample (d_bernoulli 0.5))
-       (letin "b" (sample (d_bernoulli 0.5)) (add (var "a") (var "b"))))
+       (sample (d_bernoulli (const 0.5)))
+       (letin "b" (sample (d_bernoulli (const 0.5))) (add (var "a") (var "b"))))
 
 let uni =
   model "uniform_test"
@@ -19,7 +19,7 @@ let iftest =
     (letin "a"
        (sample (d_uniformd 0. 2.))
        (letin "b"
-          (sample (d_bernoulli 0.4))
+          (sample (d_bernoulli (const 0.4)))
           (ifthenelse (var "b") (add (var "a") (var "a")) (var "a"))))
 
 let _ =

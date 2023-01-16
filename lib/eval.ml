@@ -48,10 +48,10 @@ let rec op_duplicate op test l =
   | x :: q ->
       let x, t = op_duplicate_1 op test x q in
       (x :: t) @ op_duplicate op test q
-
+let third (_,_,x,_) =x
 let rec eval_expr env e env_alt =
   match e with
-  | Const f -> (f, env, [], [])
+  | Const f -> (f, env, [(f,1.)],[])
   | Var x ->
       let v = List.assoc x env in
       let alt = List.assoc x env_alt in
@@ -88,8 +88,15 @@ let rec eval_expr env e env_alt =
       let env_alt = update_env env_alt x alt in
       eval_expr env e2 env_alt
   | Sample d -> (
+
       match d with
-      | Bernoulli p -> eval_sample (Distribution.bernoulli ~p) env env_alt
+      | Bernoulli e -> let  pval, _, alt, _ = eval_expr env e env_alt in 
+                       let alt = List.fold_left (fun  a -> fun (x,p) ->List.append  a  [(third (eval_sample (Distribution.bernoulli ~p:x) env env_alt),p)] ) [] alt in
+                       let alt = List.fold_left (fun  a -> fun (l,pl) -> List.append a (List.fold_left (fun b -> fun (x,p) -> List.append b [(x, pl *.p )] ) [] l ) ) [] alt in
+                       List.iter (fun (v,p) -> Printf.printf "v : %f ,p: %f ;" v p) alt ; 
+                       print_endline "ici";
+                       pval,env,alt,env_alt
+                      
       | UniformD (a, b) ->
           eval_sample (Distribution.uniform_discrete ~a ~b) env env_alt)
   | _ -> failwith "nyi"
