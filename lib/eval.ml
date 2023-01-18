@@ -200,10 +200,11 @@ let complement env env_alt =
 *)
 let rec eval_cond c env_alt =
   match c with
-  | Or (c1, c2) ->
-      let env1 = eval_cond c1 env_alt in
+  | Or (_, _) ->
+      (*let env1 = eval_cond c1 env_alt in
       let env2 = eval_cond c2 env_alt in
-      env1 @ env2
+      env1 @ env2*)
+      failwith "broken imp"
   | Not c ->
       let env = eval_cond c env_alt in
       let op e1 e2 = complement e1 e2 in
